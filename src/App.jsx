@@ -7,6 +7,15 @@ import {productitos as initialProducts} from './mocks/products.json';
 function App() {
   const [products, setProducts] = useState(initialProducts);
   const [categorias, setCategorias] = useState([]);
+  const [currentCategory, setcurrentCategory] = useState('All');
+  const [productsByCategories, setProductsByCategories] = useState([]);
+
+  const filteredByCategories = (str) => {
+    setProductsByCategories(
+      products.filter((el) => el.category === str.toLowerCase())
+    );
+    setcurrentCategory(str);
+  };
 
   useEffect(() => {
     const result = initialProducts.reduce((acc, item) => {
@@ -21,15 +30,23 @@ function App() {
   return (
     <>
       <div className="w-full h-screen bg-gray-200">
-        <Header categorias={categorias} />
+        <Header
+          categorias={categorias}
+          filteredByCategories={filteredByCategories}
+          setProductsByCategories={setProductsByCategories}
+        />
         <div className="bg-white border-gray-900 border-l border-r border-solid flex h-16 items-center justify-start mx-auto px-16 w-4/5">
           <p className="font-primary text-sm text-gray-400">
-            home → popular products
+            home → {currentCategory}
           </p>
         </div>
         <section className="w-4/5 mx-auto bg-white flex">
-          <Filters categorias={categorias} />
-          <ProductsList products={products} />
+          <Filters categorias={categorias} currentCategory={currentCategory} />
+          <ProductsList
+            categorias={categorias}
+            products={products}
+            productsByCategories={productsByCategories}
+          />
         </section>
       </div>
     </>

@@ -1,12 +1,20 @@
 import {useState} from 'react';
 import User from '../assets/u_user.png';
 
-export const Header = ({categorias}) => {
+export const Header = ({
+  categorias,
+  filteredByCategories,
+  setProductsByCategories,
+}) => {
   const [search, setSearch] = useState('');
 
   const handleImputChange = ({target}) => {
     setSearch(target.value);
     console.log(target.value);
+  };
+
+  const handleClickAllProducts = () => {
+    setProductsByCategories([]);
   };
 
   return (
@@ -29,6 +37,11 @@ export const Header = ({categorias}) => {
         <img src={User} alt="User Icon" />
       </div>
       <div className="h-16 bg-white border border-gray-900 border-t-0 px-16 font-primary text-sm flex justify-between items-center ">
+        <div className="w-36 h-full p-5 border-l border-gray-900 flex justify-center items-center">
+          <p className="cursor-pointer" onClick={handleClickAllProducts}>
+            All
+          </p>
+        </div>
         {categorias.map((el, index) => {
           if (index === 0) {
             return (
@@ -36,7 +49,12 @@ export const Header = ({categorias}) => {
                 key={el}
                 className="w-36 h-full p-5 border-l border-r border-gray-900 flex justify-center items-center"
               >
-                <p>{el}</p>
+                <p
+                  className="cursor-pointer"
+                  onClick={() => filteredByCategories(el)}
+                >
+                  {el}
+                </p>
               </div>
             );
           } else if (index === 5) {
@@ -45,7 +63,12 @@ export const Header = ({categorias}) => {
                 key={el}
                 className="w-36 h-full p-5 border-r border-gray-900 flex justify-center items-center"
               >
-                <p>{el}</p>
+                <p
+                  className="cursor-pointer"
+                  onClick={() => filteredByCategories(el)}
+                >
+                  {el}
+                </p>
               </div>
             );
           } else {
@@ -54,7 +77,12 @@ export const Header = ({categorias}) => {
                 key={el}
                 className="w-36 h-full p-5  border-r border-gray-900 flex justify-center items-center"
               >
-                <p>{el}</p>
+                <p
+                  className="cursor-pointer"
+                  onClick={() => filteredByCategories(el)}
+                >
+                  {el}
+                </p>
               </div>
             );
           }
