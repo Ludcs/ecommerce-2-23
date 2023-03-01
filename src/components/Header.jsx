@@ -3,18 +3,26 @@ import User from '../assets/u_user.png';
 
 export const Header = ({
   categorias,
+  setcurrentCategory,
   filteredByCategories,
   setProductsByCategories,
+  setProductsByPrice,
+  setMinPrice,
+  setAllProducts,
 }) => {
   const [search, setSearch] = useState('');
 
-  const handleImputChange = ({target}) => {
-    setSearch(target.value);
-    console.log(target.value);
-  };
+  // const handleImputChange = ({target}) => {
+  //   setSearch(target.value);
+  //   console.log(target.value);
+  // };
 
-  const handleClickAllProducts = () => {
+  const handleClickAllProducts = (e) => {
     setProductsByCategories([]);
+    setProductsByPrice([]);
+    setMinPrice(0);
+    setcurrentCategory(e.target.lastChild.data);
+    setAllProducts(true);
   };
 
   return (
@@ -38,7 +46,10 @@ export const Header = ({
       </div>
       <div className="h-16 bg-white border border-gray-900 border-t-0 px-16 font-primary text-sm flex justify-between items-center ">
         <div className="w-36 h-full p-5 border-l border-gray-900 flex justify-center items-center">
-          <p className="cursor-pointer" onClick={handleClickAllProducts}>
+          <p
+            className="cursor-pointer"
+            onClick={(e) => handleClickAllProducts(e)}
+          >
             All
           </p>
         </div>
@@ -97,7 +108,6 @@ export const Header = ({
             onChange={(e) => handleImputChange(e)}
           />
           <svg
-            // className="absolute right-0 top-[33%]"
             width="20"
             height="20"
             viewBox="0 0 20 20"

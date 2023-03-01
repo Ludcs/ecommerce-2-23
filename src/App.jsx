@@ -9,13 +9,9 @@ function App() {
   const [categorias, setCategorias] = useState([]);
   const [currentCategory, setcurrentCategory] = useState('All');
   const [productsByCategories, setProductsByCategories] = useState([]);
-
-  const filteredByCategories = (str) => {
-    setProductsByCategories(
-      products.filter((el) => el.category === str.toLowerCase())
-    );
-    setcurrentCategory(str);
-  };
+  const [productsByPrice, setProductsByPrice] = useState([]);
+  const [minPrice, setMinPrice] = useState(0);
+  const [allProducts, setAllProducts] = useState(true);
 
   useEffect(() => {
     const result = initialProducts.reduce((acc, item) => {
@@ -27,13 +23,34 @@ function App() {
     setCategorias(result.map((el) => el.charAt(0).toUpperCase() + el.slice(1)));
   }, []);
 
+  const filteredByCategories = (str) => {
+    console.log(str);
+    setProductsByCategories(
+      products.filter((el) => el.category === str.toLowerCase())
+    );
+    setcurrentCategory(str);
+    setAllProducts(false);
+    setProductsByPrice([]);
+    setMinPrice(0);
+  };
+
+  const filteredByPrice = (price) => {
+    let prices = products.filter((el) => el.price >= price);
+    setProductsByPrice(prices);
+    setAllProducts(false);
+  };
+
   return (
     <>
       <div className="w-full h-screen bg-gray-200">
         <Header
           categorias={categorias}
+          setcurrentCategory={setcurrentCategory}
           filteredByCategories={filteredByCategories}
           setProductsByCategories={setProductsByCategories}
+          setProductsByPrice={setProductsByPrice}
+          setMinPrice={setMinPrice}
+          setAllProducts={setAllProducts}
         />
         <div className="bg-white border-gray-900 border-l border-r border-solid flex h-16 items-center justify-start mx-auto px-16 w-4/5">
           <p className="font-primary text-sm text-gray-400">
@@ -41,11 +58,19 @@ function App() {
           </p>
         </div>
         <section className="w-4/5 mx-auto bg-white flex">
-          <Filters categorias={categorias} currentCategory={currentCategory} />
-          <ProductsList
+          <Filters
             categorias={categorias}
+            currentCategory={currentCategory}
+            filteredByPrice={filteredByPrice}
+            filteredByCategories={filteredByCategories}
+            minPrice={minPrice}
+            setMinPrice={setMinPrice}
+          />
+          <ProductsList
+            allProducts={allProducts}
             products={products}
             productsByCategories={productsByCategories}
+            productsByPrice={productsByPrice}
           />
         </section>
       </div>

@@ -1,10 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-export const Filters = ({categorias, currentCategory}) => {
-  const [minPrice, setMinPrice] = useState(0);
-
+export const Filters = ({
+  filteredByPrice,
+  filteredByCategories,
+  categorias,
+  currentCategory,
+  minPrice,
+  setMinPrice,
+}) => {
   const handleMinPriceChange = (e) => {
+    console.log(e.target.value);
     setMinPrice(e.target.value);
+    filteredByPrice(e.target.value);
   };
 
   const currentCatToUpper = currentCategory.toUpperCase();
@@ -24,32 +31,46 @@ export const Filters = ({categorias, currentCategory}) => {
         id="filters-category"
         className="font-primary font-bold text-sm h-10 px-2 mb-8 rounded-md border-solid border-gray-400"
       >
-        <option value="all">{currentCatToUpper}</option>
-        {categorias.map((el) => {
-          if (el.toUpperCase() === currentCatToUpper) {
-            <option key={el} value="decoration">
-              {el.toUpperCase()}
-            </option>;
-          }
-        })}
+        <option defaultValue="" selected disabled hidden>
+          Select a category here!
+        </option>
+        <option value="all" hidden={currentCatToUpper === 'ALL'}>
+          ALL
+        </option>
+        {categorias.map((el) => (
+          <option
+            key={el}
+            value={el.toUpperCase()}
+            hidden={el.toUpperCase() === currentCatToUpper}
+            onClick={() => filteredByCategories(el)}
+          >
+            {el.toUpperCase()}
+          </option>
+        ))}
       </select>
-      <label
-        htmlFor="filter-price"
-        className="mb-3 font-primary font-bold text-sm"
-      >
-        PRICE FROM:
-      </label>
-      <div className="flex w-full items-center gap-4 px-0 pb-8">
-        <input
-          className="w-full"
-          type="range"
-          id="filter-price"
-          min="0"
-          max="1000"
-          onChange={handleMinPriceChange}
-        />
-        <span className="font-primary font-bold text-base">${minPrice}</span>
-      </div>
+      {currentCategory !== 'All' ? null : (
+        <>
+          <label
+            htmlFor="filter-price"
+            className="mb-3 font-primary font-bold text-sm"
+          >
+            PRICE FROM:
+          </label>
+          <div className="flex w-full items-center gap-4 px-0 pb-8">
+            <input
+              className="w-full"
+              type="range"
+              id="filter-price"
+              min="0"
+              max="1500"
+              onChange={handleMinPriceChange}
+            />
+            <span className="font-primary font-bold text-base">
+              ${minPrice}
+            </span>
+          </div>
+        </>
+      )}
     </div>
   );
 };
