@@ -8,13 +8,23 @@ export const Header = ({
   setProductsByCategories,
   setProductsByPrice,
   setMinPrice,
+  products,
+  setProducts,
   setAllProducts,
 }) => {
   const [search, setSearch] = useState('');
 
+  // const filteredBySearch = (str) => {
+  //   let firstLetterUpperCase = str.charAt(0).toUpperCase() + str.slice(1);
+  //   let productSearch = products.filter(
+  //     (el) => el.title === firstLetterUpperCase
+  //   );
+  //   console.log(productSearch);
+  //   setProducts(productSearch);
+  // };
+
   // const handleImputChange = ({target}) => {
-  //   setSearch(target.value);
-  //   console.log(target.value);
+  //   setSearch(target.value.toLowerCase());
   // };
 
   const handleClickAllProducts = (e) => {
@@ -47,10 +57,10 @@ export const Header = ({
       <div className="h-16 bg-white border border-gray-900 border-t-0 px-16 font-primary text-sm flex justify-between items-center ">
         <div className="w-36 h-full p-5 border-l border-gray-900 flex justify-center items-center">
           <p
-            className="cursor-pointer"
+            className="cursor-pointer uppercase"
             onClick={(e) => handleClickAllProducts(e)}
           >
-            All
+            all
           </p>
         </div>
         {categorias.map((el, index) => {
@@ -61,7 +71,7 @@ export const Header = ({
                 className="w-36 h-full p-5 border-l border-r border-gray-900 flex justify-center items-center"
               >
                 <p
-                  className="cursor-pointer"
+                  className="cursor-pointer uppercase"
                   onClick={() => filteredByCategories(el)}
                 >
                   {el}
@@ -75,7 +85,7 @@ export const Header = ({
                 className="w-36 h-full p-5 border-r border-gray-900 flex justify-center items-center"
               >
                 <p
-                  className="cursor-pointer"
+                  className="cursor-pointer uppercase"
                   onClick={() => filteredByCategories(el)}
                 >
                   {el}
@@ -89,7 +99,7 @@ export const Header = ({
                 className="w-36 h-full p-5  border-r border-gray-900 flex justify-center items-center"
               >
                 <p
-                  className="cursor-pointer"
+                  className="cursor-pointer uppercase"
                   onClick={() => filteredByCategories(el)}
                 >
                   {el}

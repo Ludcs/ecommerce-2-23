@@ -7,7 +7,7 @@ import {productitos as initialProducts} from './mocks/products.json';
 function App() {
   const [products, setProducts] = useState(initialProducts);
   const [categorias, setCategorias] = useState([]);
-  const [currentCategory, setcurrentCategory] = useState('All');
+  const [currentCategory, setcurrentCategory] = useState('all');
   const [productsByCategories, setProductsByCategories] = useState([]);
   const [productsByPrice, setProductsByPrice] = useState([]);
   const [minPrice, setMinPrice] = useState(0);
@@ -20,18 +20,23 @@ function App() {
       }
       return acc;
     }, []);
-    setCategorias(result.map((el) => el.charAt(0).toUpperCase() + el.slice(1)));
+    setCategorias(result);
   }, []);
 
   const filteredByCategories = (str) => {
     console.log(str);
-    setProductsByCategories(
-      products.filter((el) => el.category === str.toLowerCase())
-    );
-    setcurrentCategory(str);
-    setAllProducts(false);
-    setProductsByPrice([]);
-    setMinPrice(0);
+
+    if (str === 'all') {
+      setAllProducts(true);
+      setProductsByCategories([]);
+      setcurrentCategory(str);
+    } else {
+      setProductsByCategories(products.filter((el) => el.category === str));
+      setAllProducts(false);
+      setProductsByPrice([]);
+      setMinPrice(0);
+      setcurrentCategory(str);
+    }
   };
 
   const filteredByPrice = (price) => {
@@ -50,6 +55,8 @@ function App() {
           setProductsByCategories={setProductsByCategories}
           setProductsByPrice={setProductsByPrice}
           setMinPrice={setMinPrice}
+          products={products}
+          setProducts={setProducts}
           setAllProducts={setAllProducts}
         />
         <div className="bg-white border-gray-900 border-l border-r border-solid flex h-16 items-center justify-start mx-auto px-16 w-4/5">
@@ -61,6 +68,7 @@ function App() {
           <Filters
             categorias={categorias}
             currentCategory={currentCategory}
+            setcurrentCategory={setcurrentCategory}
             filteredByPrice={filteredByPrice}
             filteredByCategories={filteredByCategories}
             minPrice={minPrice}

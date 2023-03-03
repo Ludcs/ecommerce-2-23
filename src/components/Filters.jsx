@@ -5,6 +5,7 @@ export const Filters = ({
   filteredByCategories,
   categorias,
   currentCategory,
+  setcurrentCategory,
   minPrice,
   setMinPrice,
 }) => {
@@ -14,12 +15,15 @@ export const Filters = ({
     filteredByPrice(e.target.value);
   };
 
-  const currentCatToUpper = currentCategory.toUpperCase();
+  const handleOptionsChange = ({target}) => {
+    filteredByCategories(target.value);
+    setcurrentCategory(target.value);
+  };
 
   return (
     <div className="bg-white border-b border-gray-900 border-l border-solid flex flex-col pt-8 px-16 w-1/3">
-      <h2 className="pb-8 flex items-center font-primary text-5xl border-b border-gray-400">
-        / {currentCatToUpper}
+      <h2 className="pb-8 flex items-center font-primary text-5xl border-b border-gray-400 uppercase">
+        / {currentCategory}
       </h2>
       <label
         htmlFor="filters-category"
@@ -27,28 +31,40 @@ export const Filters = ({
       >
         CATEGORIES:
       </label>
+      {/* DEFAULT VALUE CATEGORY */}
       <select
+        defaultValue={currentCategory}
+        onChange={(e) => handleOptionsChange(e)}
         id="filters-category"
-        className="font-primary font-bold text-sm h-10 px-2 mb-8 rounded-md border-solid border-gray-400"
+        className="font-primary font-bold text-sm h-10 px-2 mb-8 rounded-md border-solid border-gray-400 uppercase"
       >
-        <option defaultValue="" selected disabled hidden>
-          Select a category here!
+        {/* DEFAULT OPTION */}
+        <option value={currentCategory} hidden>
+          {currentCategory}
         </option>
-        <option value="all" hidden={currentCatToUpper === 'ALL'}>
-          ALL
+
+        <option
+          value="all"
+          hidden={currentCategory === 'all'}
+          onChange={(e) => handleOptionsChange(e)}
+        >
+          all
         </option>
+
         {categorias.map((el) => (
           <option
             key={el}
-            value={el.toUpperCase()}
-            hidden={el.toUpperCase() === currentCatToUpper}
-            onClick={() => filteredByCategories(el)}
+            value={el}
+            hidden={el === currentCategory}
+            onChange={(e) => handleOptionsChange(e)}
           >
-            {el.toUpperCase()}
+            {el}
           </option>
         ))}
       </select>
-      {currentCategory !== 'All' ? null : (
+
+      {/* PRICE FILTER */}
+      {currentCategory === 'all' ? (
         <>
           <label
             htmlFor="filter-price"
@@ -70,7 +86,7 @@ export const Filters = ({
             </span>
           </div>
         </>
-      )}
+      ) : null}
     </div>
   );
 };
