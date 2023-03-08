@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {EcommerceContext} from '../context/EcommerceContext';
 
-export const Filters = ({
-  filteredByPrice,
-  filteredByCategories,
-  categorias,
-  currentCategory,
-  setcurrentCategory,
-  minPrice,
-  setMinPrice,
-  productsBySearch,
-}) => {
+export const Filters = () => {
+  const {
+    filteredByPrice,
+    filteredByCategories,
+    categorias,
+    currentCategory,
+    setcurrentCategory,
+    minPrice,
+    setMinPrice,
+    productsBySearch,
+  } = useContext(EcommerceContext);
+
   const handleMinPriceChange = (e) => {
     console.log(e.target.value);
     setMinPrice(e.target.value);
@@ -32,14 +35,13 @@ export const Filters = ({
       >
         CATEGORIES:
       </label>
-      {/* DEFAULT VALUE CATEGORY */}
+
       <select
         defaultValue={currentCategory}
         onChange={(e) => handleOptionsChange(e)}
         id="filters-category"
         className="font-primary font-bold text-sm h-10 px-2 mb-8 rounded-md border-solid border-gray-400 uppercase"
       >
-        {/* DEFAULT OPTION */}
         <option value={currentCategory} hidden>
           {currentCategory}
         </option>
@@ -64,7 +66,6 @@ export const Filters = ({
         ))}
       </select>
 
-      {/* PRICE FILTER */}
       {(currentCategory === 'all') & (productsBySearch.length === 0) ? (
         <>
           <label

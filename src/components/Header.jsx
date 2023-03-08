@@ -1,24 +1,26 @@
-import {useState} from 'react';
+import {useContext} from 'react';
 import User from '../assets/u_user.png';
+import {EcommerceContext} from '../context/EcommerceContext';
 
-export const Header = ({
-  categorias,
-  currentCategory,
-  setcurrentCategory,
-  filteredByCategories,
-  productsByCategories,
-  setProductsByCategories,
-  filteredBySearch,
-  setProductsByPrice,
-  minPrice,
-  setMinPrice,
-  productsByPrice,
-  setProductsBySearch,
+export const Header = () => {
+  const {
+    categorias,
+    currentCategory,
+    setcurrentCategory,
+    filteredByCategories,
+    productsByCategories,
+    setProductsByCategories,
+    filteredBySearch,
+    setProductsByPrice,
+    minPrice,
+    setMinPrice,
+    productsByPrice,
+    setProductsBySearch,
+    setAllProducts,
+    search,
+    setSearch,
+  } = useContext(EcommerceContext);
 
-  setAllProducts,
-  search,
-  setSearch,
-}) => {
   const handleImputChange = ({target}) => {
     setSearch(target.value.toLowerCase());
     filteredBySearch(target.value.toLowerCase());

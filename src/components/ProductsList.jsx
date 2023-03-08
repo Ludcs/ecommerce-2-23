@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {EcommerceContext} from '../context/EcommerceContext';
 import {CardProduct} from './CardProduct';
 
-export const ProductsList = ({
-  allProducts,
-  products,
-  productsByCategories,
-  productsByPrice,
-  productsBySearch,
-}) => {
+export const ProductsList = () => {
+  const {
+    allProducts,
+    products,
+    productsByCategories,
+    productsByPrice,
+    productsBySearch,
+  } = useContext(EcommerceContext);
+
   return (
     <>
       {allProducts ? (
