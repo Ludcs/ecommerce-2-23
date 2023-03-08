@@ -6,6 +6,7 @@ export const ProductsList = ({
   products,
   productsByCategories,
   productsByPrice,
+  productsBySearch,
 }) => {
   return (
     <>
@@ -46,6 +47,23 @@ export const ProductsList = ({
                   price={el.price}
                 />
               ))}
+            {(productsBySearch.length === 0) &
+            (productsByCategories.length === 0) &
+            (productsByPrice.length === 0) ? (
+              <p className="font-primary font-bold text-xl uppercase">
+                no product was found 🔍
+              </p>
+            ) : (
+              productsBySearch.map((el) => (
+                <CardProduct
+                  key={el.id}
+                  srcimage={el.images[0]}
+                  title={el.title}
+                  description={el.description}
+                  price={el.price}
+                />
+              ))
+            )}
           </div>
         </div>
       )}

@@ -10,8 +10,10 @@ function App() {
   const [currentCategory, setcurrentCategory] = useState('all');
   const [productsByCategories, setProductsByCategories] = useState([]);
   const [productsByPrice, setProductsByPrice] = useState([]);
+  const [productsBySearch, setProductsBySearch] = useState([]);
   const [minPrice, setMinPrice] = useState(0);
   const [allProducts, setAllProducts] = useState(true);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const result = initialProducts.reduce((acc, item) => {
@@ -24,8 +26,6 @@ function App() {
   }, []);
 
   const filteredByCategories = (str) => {
-    console.log(str);
-
     if (str === 'all') {
       setAllProducts(true);
       setProductsByCategories([]);
@@ -34,8 +34,10 @@ function App() {
       setProductsByCategories(products.filter((el) => el.category === str));
       setAllProducts(false);
       setProductsByPrice([]);
+      setProductsBySearch([]);
       setMinPrice(0);
       setcurrentCategory(str);
+      setSearch('');
     }
   };
 
@@ -43,6 +45,28 @@ function App() {
     let prices = products.filter((el) => el.price >= price);
     setProductsByPrice(prices);
     setAllProducts(false);
+    // setProductsBySearch(prices);
+  };
+
+  const filteredBySearch = (str) => {
+    // let firstLetterUpperCase = str.charAt(0).toUpperCase() + str.slice(1);
+
+    let productSearch = products.filter((el) => {
+      if (
+        el.title.toLowerCase().includes(str.toLowerCase()) ||
+        el.description.toLowerCase().includes(str.toLowerCase())
+      ) {
+        return el;
+      }
+    });
+    // console.log(productSearch);
+    if (str === '') {
+      setProductsBySearch([]);
+      setAllProducts(true);
+    } else {
+      setProductsBySearch(productSearch);
+      setAllProducts(false);
+    }
   };
 
   return (
@@ -50,14 +74,22 @@ function App() {
       <div className="w-full h-screen bg-gray-200">
         <Header
           categorias={categorias}
+          currentCategory={currentCategory}
           setcurrentCategory={setcurrentCategory}
           filteredByCategories={filteredByCategories}
+          filteredBySearch={filteredBySearch}
+          setProductsBySearch={setProductsBySearch}
+          productsByCategories={productsByCategories}
           setProductsByCategories={setProductsByCategories}
+          productsByPrice={productsByPrice}
           setProductsByPrice={setProductsByPrice}
+          minPrice={minPrice}
           setMinPrice={setMinPrice}
           products={products}
           setProducts={setProducts}
           setAllProducts={setAllProducts}
+          search={search}
+          setSearch={setSearch}
         />
         <div className="bg-white border-gray-900 border-l border-r border-solid flex h-16 items-center justify-start mx-auto px-16 w-4/5">
           <p className="font-primary text-sm text-gray-400">
@@ -73,12 +105,14 @@ function App() {
             filteredByCategories={filteredByCategories}
             minPrice={minPrice}
             setMinPrice={setMinPrice}
+            productsBySearch={productsBySearch}
           />
           <ProductsList
             allProducts={allProducts}
             products={products}
             productsByCategories={productsByCategories}
             productsByPrice={productsByPrice}
+            productsBySearch={productsBySearch}
           />
         </section>
       </div>

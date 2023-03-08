@@ -8,6 +8,7 @@ export const Filters = ({
   setcurrentCategory,
   minPrice,
   setMinPrice,
+  productsBySearch,
 }) => {
   const handleMinPriceChange = (e) => {
     console.log(e.target.value);
@@ -64,7 +65,7 @@ export const Filters = ({
       </select>
 
       {/* PRICE FILTER */}
-      {currentCategory === 'all' ? (
+      {(currentCategory === 'all') & (productsBySearch.length === 0) ? (
         <>
           <label
             htmlFor="filter-price"

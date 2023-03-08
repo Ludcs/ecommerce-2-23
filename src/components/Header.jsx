@@ -3,36 +3,35 @@ import User from '../assets/u_user.png';
 
 export const Header = ({
   categorias,
+  currentCategory,
   setcurrentCategory,
   filteredByCategories,
+  productsByCategories,
   setProductsByCategories,
+  filteredBySearch,
   setProductsByPrice,
+  minPrice,
   setMinPrice,
-  products,
-  setProducts,
+  productsByPrice,
+  setProductsBySearch,
+
   setAllProducts,
+  search,
+  setSearch,
 }) => {
-  const [search, setSearch] = useState('');
-
-  // const filteredBySearch = (str) => {
-  //   let firstLetterUpperCase = str.charAt(0).toUpperCase() + str.slice(1);
-  //   let productSearch = products.filter(
-  //     (el) => el.title === firstLetterUpperCase
-  //   );
-  //   console.log(productSearch);
-  //   setProducts(productSearch);
-  // };
-
-  // const handleImputChange = ({target}) => {
-  //   setSearch(target.value.toLowerCase());
-  // };
+  const handleImputChange = ({target}) => {
+    setSearch(target.value.toLowerCase());
+    filteredBySearch(target.value.toLowerCase());
+  };
 
   const handleClickAllProducts = (e) => {
     setProductsByCategories([]);
     setProductsByPrice([]);
+    setProductsBySearch([]);
     setMinPrice(0);
     setcurrentCategory(e.target.lastChild.data);
     setAllProducts(true);
+    setSearch('');
   };
 
   return (
@@ -110,11 +109,17 @@ export const Header = ({
         })}
         <div className="p-5 border-r border-gray-900 flex justify-center items-center">
           <input
-            className="outline-none pr-1"
+            className={`${
+              currentCategory !== 'all' && 'cursor-not-allowed'
+            } "outline-none pr-1"`}
             type="text"
             value={search}
             name={search}
             placeholder="SEARCH"
+            disabled={
+              (minPrice > 0) & (productsByPrice.length !== 0) ||
+              productsByCategories.length !== 0
+            }
             onChange={(e) => handleImputChange(e)}
           />
           <svg
