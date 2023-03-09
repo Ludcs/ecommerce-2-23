@@ -14,7 +14,6 @@ export const Filters = () => {
   } = useContext(EcommerceContext);
 
   const handleMinPriceChange = (e) => {
-    console.log(e.target.value);
     setMinPrice(e.target.value);
     filteredByPrice(e.target.value);
   };

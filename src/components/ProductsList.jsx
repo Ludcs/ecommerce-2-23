@@ -19,10 +19,11 @@ export const ProductsList = () => {
             {products.map((el) => (
               <CardProduct
                 key={el.id}
-                srcimage={el.images[0]}
-                title={el.title}
-                description={el.description}
-                price={el.price}
+                el={el}
+                // srcimage={el.images[0]}
+                // title={el.title}
+                // description={el.description}
+                // price={el.price}
               />
             ))}
           </div>
@@ -34,20 +35,22 @@ export const ProductsList = () => {
               productsByCategories.map((el) => (
                 <CardProduct
                   key={el.id}
-                  srcimage={el.images[0]}
-                  title={el.title}
-                  description={el.description}
-                  price={el.price}
+                  el={el}
+                  // srcimage={el.images[0]}
+                  // title={el.title}
+                  // description={el.description}
+                  // price={el.price}
                 />
               ))}
             {productsByPrice.length !== 0 &&
               productsByPrice.map((el) => (
                 <CardProduct
                   key={el.id}
-                  srcimage={el.images[0]}
-                  title={el.title}
-                  description={el.description}
-                  price={el.price}
+                  el={el}
+                  // srcimage={el.images[0]}
+                  // title={el.title}
+                  // description={el.description}
+                  // price={el.price}
                 />
               ))}
             {(productsBySearch.length === 0) &
@@ -60,10 +63,11 @@ export const ProductsList = () => {
               productsBySearch.map((el) => (
                 <CardProduct
                   key={el.id}
-                  srcimage={el.images[0]}
-                  title={el.title}
-                  description={el.description}
-                  price={el.price}
+                  el={el}
+                  // srcimage={el.images[0]}
+                  // title={el.title}
+                  // description={el.description}
+                  // price={el.price}
                 />
               ))
             )}

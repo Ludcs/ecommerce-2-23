@@ -1,6 +1,7 @@
 import {useContext} from 'react';
 import User from '../assets/u_user.png';
 import {EcommerceContext} from '../context/EcommerceContext';
+import {Cart} from './Cart';
 
 export const Header = () => {
   const {
@@ -19,6 +20,8 @@ export const Header = () => {
     setAllProducts,
     search,
     setSearch,
+    showCart,
+    setShowCart,
   } = useContext(EcommerceContext);
 
   const handleImputChange = ({target}) => {
@@ -55,7 +58,7 @@ export const Header = () => {
         <p className="text-xl font-primary font-bold">Faithfull The Brand</p>
         <img src={User} alt="User Icon" />
       </div>
-      <div className="h-16 bg-white border border-gray-900 border-t-0 px-16 font-primary text-sm flex justify-between items-center ">
+      <div className="h-16 bg-white border border-gray-900 border-t-0 px-16 font-primary text-sm flex justify-between items-center relative">
         <div className="w-36 h-full p-5 border-l border-gray-900 flex justify-center items-center">
           <p
             className="cursor-pointer uppercase"
@@ -137,7 +140,10 @@ export const Header = () => {
             />
           </svg>
         </div>
-        <div className="border-r border-gray-900 flex p-5 justify-center items-center gap-x-1.5">
+        <div
+          className="cursor-pointer border-r border-gray-900 flex p-5 justify-center items-center gap-x-1.5"
+          onClick={() => setShowCart(!showCart)}
+        >
           <p>CART</p>
           <svg
             width="20"
@@ -152,6 +158,7 @@ export const Header = () => {
             />
           </svg>
         </div>
+        <Cart />
       </div>
     </main>
   );

@@ -13,6 +13,8 @@ export const EcommerceProvider = ({children}) => {
   const [minPrice, setMinPrice] = useState(0);
   const [allProducts, setAllProducts] = useState(true);
   const [search, setSearch] = useState('');
+  const [showCart, setShowCart] = useState(false);
+  const [productsInCart, setProductsInCart] = useState([]);
 
   useEffect(() => {
     const result = initialProducts.reduce((acc, item) => {
@@ -65,6 +67,24 @@ export const EcommerceProvider = ({children}) => {
     }
   };
 
+  const addProductToCart = (product) => {
+    console.log(product);
+    let inCart = productsInCart.find((el) => el.id === product.id);
+    if (inCart) {
+      setProductsInCart(
+        productsInCart.map((el) => {
+          if (el.id === product.id) {
+            return {...inCart, amount: inCart.amount + 1};
+          } else {
+            return el;
+          }
+        })
+      );
+    } else {
+      setProductsInCart([...productsInCart, {...product, amount: 1}]);
+    }
+  };
+
   return (
     <EcommerceContext.Provider
       value={{
@@ -89,6 +109,10 @@ export const EcommerceProvider = ({children}) => {
         filteredByCategories,
         filteredByPrice,
         filteredBySearch,
+        showCart,
+        setShowCart,
+        addProductToCart,
+        productsInCart,
       }}
     >
       {children}
