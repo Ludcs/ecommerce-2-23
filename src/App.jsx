@@ -9,14 +9,14 @@ function App() {
 
   return (
     <>
-      <div className="w-full h-screen bg-gray-200">
+      <div className="w-full min-h-screen bg-gray-200">
         <Header />
-        <div className="bg-white border-gray-900 border-l border-r border-solid flex h-16 items-center justify-start mx-auto px-16 w-4/5">
+        <div className="bg-white border-gray-900 border-l border-r border-solid flex h-16 items-center justify-start mx-auto px-16 max-w-7xl">
           <p className="font-primary text-sm text-gray-400">
             home → {currentCategory}
           </p>
         </div>
-        <section className="w-4/5 mx-auto bg-white flex">
+        <section className="max-w-7xl mx-auto bg-white flex min-h-screen">
           <Filters />
           <ProductsList />
         </section>

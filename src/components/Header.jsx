@@ -41,7 +41,7 @@ export const Header = () => {
   };
 
   return (
-    <main className="bg-white w-4/5 h-32 mx-auto">
+    <main className="bg-white max-w-7xl h-32 mx-auto">
       <div className="h-16 bg-white border border-gray-900 font-mono flex px-16 justify-between items-center ">
         <svg
           width="17"

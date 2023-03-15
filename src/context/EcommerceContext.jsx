@@ -26,6 +26,17 @@ export const EcommerceProvider = ({children}) => {
     setCategorias(result);
   }, []);
 
+  useEffect(() => {
+    let data = localStorage.getItem('productsCart');
+    if (data) {
+      setProductsInCart(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('productsCart', JSON.stringify(productsInCart));
+  }, [productsInCart]);
+
   const filteredByCategories = (str) => {
     if (str === 'all') {
       setAllProducts(true);

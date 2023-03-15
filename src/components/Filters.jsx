@@ -24,7 +24,7 @@ export const Filters = () => {
   };
 
   return (
-    <div className="bg-white border-b border-gray-900 border-l border-solid flex flex-col pt-8 px-16 w-1/3">
+    <div className="bg-white border-gray-900 border-l border-b border-solid flex flex-col pt-8 px-16 w-1/3">
       <h2 className="pb-8 flex items-center font-primary text-5xl border-b border-gray-400 uppercase">
         / {currentCategory}
       </h2>

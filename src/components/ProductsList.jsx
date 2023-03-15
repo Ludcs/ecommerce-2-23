@@ -14,7 +14,7 @@ export const ProductsList = () => {
   return (
     <>
       {allProducts ? (
-        <div className="border-b border-gray-900 border-r border-solid h-[680px] overflow-y-scroll w-2/3">
+        <div className="pb-3 border-gray-900 border-r border-solid w-full border-b">
           <div className="grid grid-cols-3 gap-4 justify-items-center">
             {products.map((el) => (
               <CardProduct key={el.id} el={el} />
@@ -22,7 +22,7 @@ export const ProductsList = () => {
           </div>
         </div>
       ) : (
-        <div className="border-b border-gray-900 border-r border-solid h-[680px] overflow-y-scroll w-2/3">
+        <div className=" pb-3 border-gray-900 border-r border-b border-solid w-full">
           <div className="grid grid-cols-3 gap-4 justify-items-center">
             {productsByCategories.length !== 0 &&
               productsByCategories.map((el) => (
