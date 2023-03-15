@@ -68,7 +68,6 @@ export const EcommerceProvider = ({children}) => {
   };
 
   const addProductToCart = (product) => {
-    console.log(product);
     let inCart = productsInCart.find((el) => el.id === product.id);
     if (inCart) {
       setProductsInCart(
@@ -82,6 +81,23 @@ export const EcommerceProvider = ({children}) => {
       );
     } else {
       setProductsInCart([...productsInCart, {...product, amount: 1}]);
+    }
+  };
+
+  const deleteProductFromCart = (product) => {
+    let existInCart = productsInCart.find((el) => el.id === product.id);
+    if (existInCart.amount === 1) {
+      setProductsInCart(productsInCart.filter((el) => el.id !== product.id));
+    } else {
+      setProductsInCart(
+        productsInCart.map((el) => {
+          if (el.id === product.id) {
+            return {...existInCart, amount: existInCart.amount - 1};
+          } else {
+            return el;
+          }
+        })
+      );
     }
   };
 
@@ -113,6 +129,8 @@ export const EcommerceProvider = ({children}) => {
         setShowCart,
         addProductToCart,
         productsInCart,
+        setProductsInCart,
+        deleteProductFromCart,
       }}
     >
       {children}

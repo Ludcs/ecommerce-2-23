@@ -22,6 +22,7 @@ export const Header = () => {
     setSearch,
     showCart,
     setShowCart,
+    productsInCart,
   } = useContext(EcommerceContext);
 
   const handleImputChange = ({target}) => {
@@ -112,7 +113,7 @@ export const Header = () => {
             );
           }
         })}
-        <div className="p-5 border-r border-gray-900 flex justify-center items-center">
+        <div className="h-full p-5 border-r border-gray-900 flex justify-center items-center">
           <input
             className={`${
               currentCategory !== 'all' && 'cursor-not-allowed'
@@ -141,7 +142,11 @@ export const Header = () => {
           </svg>
         </div>
         <div
-          className="cursor-pointer border-r border-gray-900 flex p-5 justify-center items-center gap-x-1.5"
+          className={`${
+            productsInCart.length !== 0
+              ? 'h-full bg-green-300 cursor-pointer border-r border-gray-900 flex p-5 justify-center items-center gap-x-1 transition-colors'
+              : 'h-full cursor-pointer border-r border-gray-900 flex p-5 justify-center items-center gap-x-1'
+          }`}
           onClick={() => setShowCart(!showCart)}
         >
           <p>CART</p>
