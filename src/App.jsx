@@ -16,7 +16,7 @@ function App() {
             home → {currentCategory}
           </p>
         </div>
-        <section className="max-w-7xl mx-auto bg-white flex min-h-screen">
+        <section className="max-w-7xl mx-auto bg-white flex min-h-[calc(100vh-192px)]">
           <Filters />
           <ProductsList />
         </section>

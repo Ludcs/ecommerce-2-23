@@ -1,5 +1,8 @@
 import {createContext, useState, useEffect} from 'react';
 import {productitos as initialProducts} from '../mocks/products.json';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../firebase-config';
+import {useNavigate} from 'react-router-dom';
 
 export const EcommerceContext = createContext();
 
@@ -15,6 +18,13 @@ export const EcommerceProvider = ({children}) => {
   const [search, setSearch] = useState('');
   const [showCart, setShowCart] = useState(false);
   const [productsInCart, setProductsInCart] = useState([]);
+  const [formRegister, setFormRegister] = useState({
+    email: '',
+    password: '',
+  });
+  const [error, setError] = useState();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const result = initialProducts.reduce((acc, item) => {
@@ -112,6 +122,15 @@ export const EcommerceProvider = ({children}) => {
     }
   };
 
+  const signup = async (email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      navigate('/');
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <EcommerceContext.Provider
       value={{
@@ -142,6 +161,11 @@ export const EcommerceProvider = ({children}) => {
         productsInCart,
         setProductsInCart,
         deleteProductFromCart,
+        formRegister,
+        setFormRegister,
+        signup,
+        error,
+        setError,
       }}
     >
       {children}
