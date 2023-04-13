@@ -25,7 +25,6 @@ export const CardProduct = ({el}) => {
         <p className="font-primary font-bold text-base">${el.price}</p>
         <button
           className="w-full font-primary text-center border border-solid border-gray-400"
-          // onClick={() => addProductToCart(el)}
           onClick={handleAddProductClick}
         >
           Add to Cart

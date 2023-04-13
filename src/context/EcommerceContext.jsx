@@ -145,15 +145,6 @@ export const EcommerceProvider = ({children}) => {
     } catch (error) {
       console.log(error.code);
       setError(error);
-      // if (error.code === 'auth/invalid-email') {
-      //   setError('Invalid email');
-      // } else if (error.code === 'auth/email-already-in-use') {
-      //   setError('Email already in use');
-      // } else if (error.code === 'auth/weak-password') {
-      //   setError('Weak password');
-      // } else if (error.code === 'auth/missing-password') {
-      //   setError('Please insert password');
-      // }
     }
   };
 
@@ -164,11 +155,6 @@ export const EcommerceProvider = ({children}) => {
     } catch (error) {
       console.log(error);
       setError(error);
-      // if (error.code === 'auth/user-not-found') {
-      //   setError('User not found');
-      // } else {
-      //   setError(error.code);
-      // }
     }
   };
 
