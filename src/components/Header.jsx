@@ -1,5 +1,4 @@
 import {useContext} from 'react';
-// import User from '../assets/u_user.png';
 import {EcommerceContext} from '../context/EcommerceContext';
 import {Cart} from './Cart';
 import LogoutIcon from '../assets/log-out-outline.svg';
@@ -27,8 +26,6 @@ export const Header = () => {
     userInfo,
     logout,
   } = useContext(EcommerceContext);
-
-  console.log(userInfo);
 
   const handleImputChange = ({target}) => {
     setSearch(target.value.toLowerCase());

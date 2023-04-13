@@ -5,8 +5,15 @@ import {Navigate} from 'react-router-dom';
 export const ProtectedRoutes = ({children}) => {
   const {userInfo, loading} = useContext(EcommerceContext);
 
-  if (loading)
-    return <h1 className="font-primary font-bold text-3xl ">Loading...</h1>;
+  if (loading) {
+    return (
+      <div className="w-full h-screen m-auto ">
+        <h1 className="w-full h-full flex justify-center items-center font-primary font-bold text-4xl m-auto">
+          Loading...
+        </h1>
+      </div>
+    );
+  }
 
   if (!userInfo) return <Navigate to="/login" />;
 

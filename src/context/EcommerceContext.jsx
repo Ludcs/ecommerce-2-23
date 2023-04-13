@@ -144,15 +144,16 @@ export const EcommerceProvider = ({children}) => {
       navigate('/');
     } catch (error) {
       console.log(error.code);
-      if (error.code === 'auth/invalid-email') {
-        setError('Invalid email');
-      } else if (error.code === 'auth/email-already-in-use') {
-        setError('Email already in use');
-      } else if (error.code === 'auth/weak-password') {
-        setError('Weak password');
-      } else if (error.code === 'auth/missing-password') {
-        setError('Please insert password');
-      }
+      setError(error);
+      // if (error.code === 'auth/invalid-email') {
+      //   setError('Invalid email');
+      // } else if (error.code === 'auth/email-already-in-use') {
+      //   setError('Email already in use');
+      // } else if (error.code === 'auth/weak-password') {
+      //   setError('Weak password');
+      // } else if (error.code === 'auth/missing-password') {
+      //   setError('Please insert password');
+      // }
     }
   };
 
@@ -172,8 +173,8 @@ export const EcommerceProvider = ({children}) => {
   };
 
   const loginWithGoogle = async () => {
-    const googleProvider = new GoogleAuthProvider();
     try {
+      const googleProvider = new GoogleAuthProvider();
       await signInWithPopup(auth, googleProvider);
       navigate('/');
     } catch (error) {

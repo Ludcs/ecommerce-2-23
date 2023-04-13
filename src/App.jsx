@@ -10,8 +10,8 @@ function App() {
   return (
     <>
       {loading ? (
-        <div className="w-full h-screen bg-gray-200 flex justify-center items-center">
-          <p className="font-primary font-bold text-3xl">Loading...</p>
+        <div className="w-full h-screen bg-gray-200 flex justify-center items-center m-auto">
+          <p className="font-primary font-bold text-5xl">Loading...</p>
         </div>
       ) : (
         <div className="w-full min-h-screen bg-gray-200">
