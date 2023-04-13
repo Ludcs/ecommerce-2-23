@@ -1,7 +1,8 @@
 import {useContext} from 'react';
-import User from '../assets/u_user.png';
+// import User from '../assets/u_user.png';
 import {EcommerceContext} from '../context/EcommerceContext';
 import {Cart} from './Cart';
+import LogoutIcon from '../assets/log-out-outline.svg';
 
 export const Header = () => {
   const {
@@ -23,7 +24,11 @@ export const Header = () => {
     showCart,
     setShowCart,
     productsInCart,
+    userInfo,
+    logout,
   } = useContext(EcommerceContext);
+
+  console.log(userInfo);
 
   const handleImputChange = ({target}) => {
     setSearch(target.value.toLowerCase());
@@ -57,7 +62,22 @@ export const Header = () => {
           />
         </svg>
         <p className="text-xl font-primary font-bold">Faithfull The Brand</p>
-        <img src={User} alt="User Icon" />
+        <p className="font-primary">{userInfo.displayName || userInfo.email}</p>
+        {userInfo.photoURL ? (
+          <img
+            src={userInfo.photoURL}
+            alt="Photo of user"
+            className="w-8 h-8 rounded-full"
+          />
+        ) : null}
+
+        <img
+          src={LogoutIcon}
+          alt="User Icon"
+          title="Logout"
+          onClick={logout}
+          className="cursor-pointer w-8 h-8"
+        />
       </div>
       <div className="h-16 bg-white border border-gray-900 border-t-0 px-16 font-primary text-sm flex justify-between items-center relative">
         <div className="w-36 h-full p-5 border-l border-gray-900 flex justify-center items-center">

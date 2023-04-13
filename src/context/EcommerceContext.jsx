@@ -1,6 +1,13 @@
 import {createContext, useState, useEffect} from 'react';
 import {productitos as initialProducts} from '../mocks/products.json';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
 import {auth} from '../firebase-config';
 import {useNavigate} from 'react-router-dom';
 
@@ -23,6 +30,8 @@ export const EcommerceProvider = ({children}) => {
     password: '',
   });
   const [error, setError] = useState();
+  const [userInfo, setUserInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -46,6 +55,13 @@ export const EcommerceProvider = ({children}) => {
   useEffect(() => {
     localStorage.setItem('productsCart', JSON.stringify(productsInCart));
   }, [productsInCart]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUserInfo(currentUser);
+      setLoading(false);
+    });
+  }, []);
 
   const filteredByCategories = (str) => {
     if (str === 'all') {
@@ -127,7 +143,49 @@ export const EcommerceProvider = ({children}) => {
       await createUserWithEmailAndPassword(auth, email, password);
       navigate('/');
     } catch (error) {
+      console.log(error.code);
+      if (error.code === 'auth/invalid-email') {
+        setError('Invalid email');
+      } else if (error.code === 'auth/email-already-in-use') {
+        setError('Email already in use');
+      } else if (error.code === 'auth/weak-password') {
+        setError('Weak password');
+      } else if (error.code === 'auth/missing-password') {
+        setError('Please insert password');
+      }
+    }
+  };
+
+  const login = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+      setError(error);
+      // if (error.code === 'auth/user-not-found') {
+      //   setError('User not found');
+      // } else {
+      //   setError(error.code);
+      // }
+    }
+  };
+
+  const loginWithGoogle = async () => {
+    const googleProvider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, googleProvider);
+      navigate('/');
+    } catch (error) {
       setError(error.message);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -164,8 +222,13 @@ export const EcommerceProvider = ({children}) => {
         formRegister,
         setFormRegister,
         signup,
+        login,
+        logout,
         error,
         setError,
+        userInfo,
+        loading,
+        loginWithGoogle,
       }}
     >
       {children}
