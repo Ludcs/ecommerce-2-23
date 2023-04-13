@@ -13,7 +13,7 @@ En caso de haber un error al realizar el login éste se muestra en la pantalla.
 
 Registro de un nuevo usuario mediante email & password. En caso de haber un error al realizar el register éste se muestra en la pantalla.
 
-![](./src/assets/RegisterPAge.jpg)
+![](./src/assets/RegisterPage.jpg)
 
 ## Home Page
 
